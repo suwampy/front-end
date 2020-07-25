@@ -1,8 +1,1 @@
-## ES6
-* 참조 서적
-  * 러닝 자바스크립트 ES6로 제대로 입문하는 모던 자바스크립트 웹 개발
-  * 인사이드 자바스크립트
-  
-## React
-* 참조서적
-   * 러닝리액트
+![a1](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fv1JA3%2FbtqF2RVRxhp%2FmdeRojTUamqkIdA8ilTnCk%2Fimg.png)
