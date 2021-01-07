@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <script crossorigin="http://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    </head>
+    <body>
+        <div id='root'></div> 
+        <script>
+            const e = React.createElement; 
+            
+            class LikeButton extends React.Component {
+                constructor(props) {
+                    super(props);
+                    // 상태 = 바뀌는 부분, 바뀔 수 있는 부분
+                    // ex ) 버튼을 누르면 liked로 바뀜. 바뀔 여지가 있는 부분 = state
+                    this.state = {
+                        liked : false, // 기본값
+                    }
+                }
+
+                render(){ 
+                    // return e('button',{onClick : () => {console.log('click')}, type : 'submit'}, 'Like'); 
+                    // <button onclick="() => {console.log('clicked')}" type="submit">Like</button>
+                    return e('button',
+                    {onClick : () => this.setState({liked:true}), type : 'submit'},
+                    this.state.liked === true ? 'Liked' : 'Like'); // state가 true로 바뀌면 글자가 자동으로 like로 바뀜 false면 liked;
+                    // 기존의 jquery...
+                    // $('button').text("Liked"); 이렇게 바꿔줬어야햇음
+                    // constructor 안에 넣어준 상태를 바꾸면 알아서 텍스트가 바뀐다
+                    // 리액트가 상태 / 데이터를 알아서 매칭해줌!!
+                }
+
+
+            }
+        </script>
+
+        <script>
+            ReactDOM.render(e(LikeButton), document.querySelector("#root"));
+        </script>
+    </body>
+</html>
