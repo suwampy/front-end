@@ -1,0 +1,94 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>구구단</title>
+    <script crossorigin="http://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <div id='root'></div>
+    <script type="text/babel">
+            class GuGuDan extends React.Component {
+                constructor(props){
+                    super(props);
+
+
+                    this.state = {
+                        first : Math.ceil(Math.random() * 9),
+                        second :  Math.ceil(Math.random() * 9),
+                        value = '',
+                        result : '',
+                    };
+                }
+                
+                onSubmit =(e)=>{
+                                e.preventDefault();
+                                if(parseInt(this.state.value) === this.state.first * this.state.second) {
+                                    // 1. setState
+                                    // prevSate = 예전 상태값을
+                                    this.setState((prevState)=>{
+                                        // 다음 상태값ㅇㅔ 활용
+                                        // this.state 가 들어가면 함수를 쓰자
+                                        return {
+                                            result : prevState.value+'정답',
+                                            first : Math.ceil(Math.random() * 9),
+                                            second : Math.ceil(Math.random() * 9),
+                                            value : '',
+                                        };
+
+                                    });
+
+                                    this.setState((prevState)=>{
+                                        return{
+                                            value : prevSate.value+1;
+                                        }
+                                    });
+                                    
+                                    // focus
+                                    this.input.focus();
+
+                                }else{
+                                    this.setState({
+                                        result : '땡',
+                                        value : '',
+                                    });
+                                }
+                };
+                    
+
+                onChange = (e) => {
+                    this.setState({value : e.target.value});
+                }
+                
+                // 변수 선언
+                input;
+                
+                // 컨텐츠
+                render(){
+                    return (
+                        <React.Fragment>
+                            <div>{this.state.first} 곱하기 {this.state.second} 는?</div> 
+                            <form onSubmit = {this.onSubmit}>
+                                 <!--2. dom에 직접 전근하고 싶을 때 : ref-->
+                                <input ref={(c)=>{this.input = c;}} type="number" value={this.state.value} onChange={this.onChange} />
+                                <button>입력</button>
+                            </form>   
+                            <div>{this.state.result}</div>
+                        </React.Fragment>
+                    );
+                }
+            }
+        </script>
+
+    <script type="text/babel">
+            // ReactDOM.render(e(LikeButton), document.querySelector("#root"));
+            ReactDOM.render(
+                <GuGuDan />
+                , document.querySelector("#root"));
+        </script>
+</body>
+
+</html>
