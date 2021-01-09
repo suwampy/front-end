@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>구구단</title>
+    <script crossorigin="http://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <div id='root'></div>
+    <script type="text/babel">
+        // 기존의 class
+        // class Gugudan extends React.Component {
+        //  state = {
+        //         first : Math.ceil(Math.random()*9),
+        //         second : Math.ceil(Math.random()*9),
+        //         value : '',
+        //         result : '',
+        //        };
+        // }
+            
+        // 함수형 : setState 할 필요 없을 때 썼었음...
+        // Hooks ? 이 함수 컴포넌트에 state와 ref 기능을 추가해준 것
+        const GuGudan = () => {
+            // use로 시작되는게 hooks !
+            const [first, setFirst] = React.useSate(Math.ceil(Math.random() * 9));
+            const [second, setSecond] = React.useSate(Math.ceil(Math.random() * 9));
+            const [value, setValue] = React.useSate(Math.ceil(''));
+            const [result, setResult] = React.useSate(Math.ceil(''));
+            // dom에 접근
+            const inputRef = React.useRef(null);
+
+            const onChangeInput = (e) => {
+                //setState가 없어짐
+                setValue(e.target.value);
+            } 
+
+            const onSubmitForm = (e) => {
+                e.preventDefault();
+                if(parseInt(this.state.value) === this.state.first * this.state.second) {
+                    setResult('정답 : ' +value);
+                    setFirst( Math.ceil(Math.random() * 9));
+                    setSecond( Math.ceil(Math.random() * 9));
+                    setValue('');
+                    // current로 접근
+                    inputRef.current.focus();
+                }else{
+                    setResult('땡');
+                    setValue('');
+                    inputRef.current.focus();
+                }
+            };
+            
+            return <React.Fragment>
+                    <div> {first} 곱하기 {second} 는?</div>
+                    <form>
+                        <input ref={inputRef} onChange={onChangeInput} vlaue = {value}/>
+                        <button>입력</button>
+                    </form>
+                    <div id="result">{result}</div>
+                </React.FRagment>;
+        }
+
+
+    </script>
+
+    <script type="text/babel">
+            // ReactDOM.render(e(LikeButton), document.querySelector("#root"));
+            ReactDOM.render(
+                <GuGuDan />
+                , document.querySelector("#root"));
+        </script>
+</body>
+
+</html>
