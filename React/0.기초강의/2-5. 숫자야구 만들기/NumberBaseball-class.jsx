@@ -12,31 +12,47 @@ function getNumbers() { // 숫자 네 개를 겹치지 않고 랜덤하게 뽑�
 }
 
 class NumberBaseball extends Component {
+  
+    // 랜더링 될 때 처음에 생성되는 객체
   state = {
     result: '',
     value: '',
     answer: getNumbers(), // ex: [1,3,5,7]
     tries: [], // push 쓰면 안 돼요
   };
-
+  
   onSubmitForm = (e) => {
     const { value, tries, answer } = this.state;
     e.preventDefault();
-    if (value === answer.join('')) {
+    // 1. 현재 state 값을 가져온다
+    // 현재 state 값 : 랜더링 됐을 때의 초기값 + 폼을 제출하면서 초기화 된 값
+    // ex ) answer : [9,6,8,3]
+    //      result : ""
+    //      tries : [{try : "1234", result : "1스트라이크 2볼입니다"}]
+    //      value : "1233" // 폼에 제출 한 값 (제출함으로써 초기화 됨)
+
+    console.log("this state : ");
+    console.log(this.state);
+
+    if (value === answer.join('')) { 
+    // 2.제출한 폼의 input값과 answer 값이 일치한다면 = 홈런일 때
       this.setState((prevState) => {
         return {
           result: '홈런!',
           tries: [...prevState.tries, { try: value, result: '홈런!' }],
         }
       });
-      alert('게임을 다시 시작합니다!');
+
       this.setState({
         value: '',
         answer: getNumbers(),
         tries: [],
       });
+
       this.inputRef.current.focus();
-    } else { // 답 틀렸으면
+
+    } else { 
+    // 3. 답 틀렸으면
       const answerArray = value.split('').map((v) => parseInt(v));
       let strike = 0;
       let ball = 0;
@@ -71,7 +87,6 @@ class NumberBaseball extends Component {
   };
 
   onChangeInput = (e) => {
-    console.log(this.state.answer);
     this.setState({
       value: e.target.value,
     });
