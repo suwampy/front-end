@@ -1,0 +1,79 @@
+## 4. 객체의 비구조화 할당문
+   - 구조화 : 인터페이스나 클래스를 사용해 관련된 정보를 묶어 새로운 타입으로 표현하는 것
+       ```typescript
+       // 구조화가 필요한 코드 예
+       let personName = 'Jack'
+       let personAge = 32
+       let companyName = 'Apple Company, Inc'
+       let companyAge = 43
+
+       // 구조화
+       export interface IPerson{
+          name : String
+          age : number
+       }
+
+       export interface ICompoany{
+          name : String
+          age : number
+       }     
+
+       // 사용
+       import {IPerson, ICompany} from './IPerson_ICompany'
+       
+       let jack : IPerson = {name :'Jack', age : 32},
+           jane : IPerson = {name : 'jane', age : 32}
+
+       let apple : ICompoany = {name : 'Apple Computer, Inc', age : 43}
+           ms : ICompany = {name : 'Microsoft', age :44}
+       ```        
+   - 비구조화 : 구조화된 데이터를 분해하는 것
+      ```typescript
+      let name = jack.name, age = jack.age
+      ```
+   
+   - 비구조화 할당
+      ```typescript
+      import {IPerson} from './IPerson_ICompany'
+      
+      let jack : IPerson = {name : 'Jack', age:32}
+      let {name, age} = jack // name과 age 변수가 새로 만들어짐
+      // name 변수는 jack.name의 값, age 변수는 jack.age의 값을 각각 초깃값으로 할당받음
+      console.log(name, age) // Jack 32
+      ```                                        
+     
+   - 잔여 연산자(전개 연산자) : 점을 연이어 3개 사용하는 ... 연사ㅏㄴ자
+      ```typescript
+      let address : any = {
+        country : 'Korea',
+        city : 'Seoul',
+        address1 : 'Gangnam-gu',
+        address2 : 'Sinsa-dong 123-456',
+        address3 : '789 street, 2 Floor ABC building'
+      }
+      // address 변수는 5개 속성을 가지고 있는데
+      // 이 중 conutry와 city를 제외한 나머지 속성을
+      // 별도의 detail이라는 변수에 저장하고 싶다면
+      // detail 변수 앞에 잔여 연산자를 붙임
+      const {country, city, ...detail} = address
+      console.log(detail)     
+      
+      /** 실행결과
+     { address1 : 'Gangnam-gu',
+       address2 : 'Sinsa-dong 123-456',
+       address3 : '789 street, 2 Floor ABC building'} 
+     
+      **/
+     
+      ```    
+   
+   - 전개 연산자 : 객체의 속성을 모두 전개해 새로운 객체로 만들어 줌 
+   ```typescript
+   let part1 = {name:'jane'}, part2 = {age:22}, part3 = {city:'Seoul',country:'Kr'};
+   // 이를 모두 합한 객체를 만들고 싶을 때
+   let merged = {...part1, ...part2, ...part3}
+   console.log(merged)
+
+   // 실행 결과
+   // {name : 'jane', age : 22, city : 'Seoul', country: 'Kr'}
+   ```
