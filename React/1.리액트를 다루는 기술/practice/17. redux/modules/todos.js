@@ -49,10 +49,16 @@ const initialState = {
 }
 
 function todos(state = initialState, action){
+
+    // state값 = 현재 상태
+    // action = 새로 들어온거
     switch (action.type) {
         case CHANGE_INPUT:
+        //input 값을 변경할 때
             return {
-                ...state,
+                // 리듀서에서는 상태의불변성을 유지하면서 데이터에 변화를 일으켜야함
+                // -> spread 연산자 사용
+                ...state, //불변성유지 기존의 객체는 건드리지않음!!
                 input : action.input
             };
         case INSERT :
